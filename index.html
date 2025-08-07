@@ -3,31 +3,437 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>금융 정보 허브 - KHUNS</title>
+    <title>금융정보허브 - 정부지원금 및 금융정보 전문 플랫폼</title>
+    <meta name="description" content="근로장려금, 정부지원금, 민생회복지원금 등 다양한 금융정보를 한 곳에서 확인하세요">
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1 { color: #333; }
-        h2 { color: #666; margin-top: 30px; }
-        a { color: #0066cc; text-decoration: none; display: block; margin: 10px 0; }
-        a:hover { text-decoration: underline; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #333;
+            background-color: #fff;
+        }
+
+        /* 헤더 */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: #2c5aa0;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .services-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #3498db;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #3498db;
+        }
+
+        .service-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .service-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .service-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            display: inline-block;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .service-link:hover {
+            border-bottom-color: #3498db;
+        }
+
+        /* 유틸리티 섹션 */
+        .utilities-section {
+            background: #f8f9fa;
+            padding: 60px 0;
+            margin: 60px -20px 0;
+        }
+
+        .utilities-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .utilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .utility-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .utility-card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* CTA 섹션 */
+        .cta-section {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin: 60px -20px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .main-cta-button {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+
+        .main-cta-button:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231,76,60,0.4);
+        }
+
+        /* 푸터 */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 20px;
+            color: #95a5a6;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.2em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .services-grid,
+            .utilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>🏠 금융 정보 허브</h1>
-    <p>다양한 금융 정보와 도구를 한 곳에서 확인하세요.</p>
-    
-    <h2>📋 정부 지원금 정보</h2>
-    <a href="https://ps.nomoneynosunny.com">📋 근로장려금 신청방법</a>
-    <a href="https://ps2.nomoneynosunny.com">🎯 정부지원혜택 정보</a>
-    <a href="https://knews.nomoneynosunny.com">📰 근로장려금 뉴스</a>
-    <a href="https://knews2.nomoneynosunny.com">📰 민생회복지원금 정보</a>
-    <a href="https://knews3.nomoneynosunny.com">📰 문화비소득공제 정보</a>
-    
-    <h2>🛠️ 유틸리티</h2>
-    <a href="https://utill.nomoneynosunny.com">🛠️ 온라인 도구모음</a>
-    <a href="https://info.nomoneynosunny.com">💡 생활정보</a>
-    
-    <h2>🏠 메인 사이트</h2>
-    <a href="https://nomoneynosunny.com">🏠 꿀팁 정보 메인</a>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">💼 금융정보허브</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#services">지원금정보</a></li>
+                    <li><a href="#utilities">유틸리티</a></li>
+                    <li><a href="#about">소개</a></li>
+                    <li><a href="#contact">문의</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>금융정보의 모든 것</h1>
+            <p>정부 지원금부터 생활 금융 정보까지, 신뢰할 수 있는 정보를 한 곳에서 제공합니다</p>
+            <a href="#services" class="cta-button">서비스 둘러보기</a>
+        </div>
+    </section>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <!-- 서비스 섹션 -->
+        <section id="services" class="services-section">
+            <h2 class="section-title">정부 지원금 정보</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3 class="service-title">근로장려금 신청</h3>
+                    <p class="service-description">근로장려금 신청 절차와 필요 서류, 지급 일정 등 상세한 정보를 제공합니다.</p>
+                    <a href="https://ps.nomoneynosunny.com" class="service-link">자세히 보기 →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3 class="service-title">정부지원혜택</h3>
+                    <p class="service-description">다양한 정부 지원 혜택과 자격 요건을 쉽게 확인하고 신청할 수 있습니다.</p>
+                    <a href="https://ps2.nomoneynosunny.com" class="service-link">혜택 확인하기 →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📰</div>
+                    <h3 class="service-title">근로장려금 뉴스</h3>
+                    <p class="service-description">근로장려금 관련 최신 소식과 정책 변화를 실시간으로 업데이트합니다.</p>
+                    <a href="https://knews.nomoneynosunny.com" class="service-link">뉴스 보기 →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏥</div>
+                    <h3 class="service-title">민생회복지원금</h3>
+                    <p class="service-description">민생회복지원금 신청 방법과 지급 현황을 상세히 안내합니다.</p>
+                    <a href="https://knews2.nomoneynosunny.com" class="service-link">신청하기 →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎭</div>
+                    <h3 class="service-title">문화비소득공제</h3>
+                    <p class="service-description">문화비 소득공제 혜택과 신청 방법에 대한 완벽 가이드를 제공합니다.</p>
+                    <a href="https://knews3.nomoneynosunny.com" class="service-link">공제 받기 →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 유틸리티 섹션 -->
+    <section class="utilities-section">
+        <div class="utilities-content">
+            <h2 class="section-title">생활 유틸리티</h2>
+            <div class="utilities-grid">
+                <div class="utility-card">
+                    <div class="service-icon">🛠️</div>
+                    <h3 class="service-title">온라인 도구모음</h3>
+                    <p class="service-description">일상생활에 유용한 다양한 온라인 도구들을 한 곳에 모아두었습니다.</p>
+                    <a href="https://utill.nomoneynosunny.com" class="service-link">도구 사용하기 →</a>
+                </div>
+
+                <div class="utility-card">
+                    <div class="service-icon">💡</div>
+                    <h3 class="service-title">생활정보</h3>
+                    <p class="service-description">알아두면 유용한 생활 꿀팁과 정보들을 정리해서 제공합니다.</p>
+                    <a href="https://info.nomoneynosunny.com" class="service-link">정보 확인하기 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA 섹션 -->
+    <section class="cta-section">
+        <h2>더 많은 금융 정보가 필요하시나요?</h2>
+        <p>꿀팁 정보 메인 사이트에서 더욱 다양한 정보를 확인하세요</p>
+        <a href="https://nomoneynosunny.com" class="main-cta-button">메인 사이트 방문하기</a>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#privacy">개인정보처리방침</a>
+                <a href="#terms">이용약관</a>
+                <a href="#contact">문의하기</a>
+                <a href="#sitemap">사이트맵</a>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 금융정보허브 - KHUNS. 모든 권리 보유.</p>
+                <p>신뢰할 수 있는 금융 정보를 제공하기 위해 최선을 다하고 있습니다.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
